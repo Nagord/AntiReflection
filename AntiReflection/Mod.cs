@@ -8,7 +8,7 @@ namespace AntiReflection
 
         public override string Author => "Dragon";
 
-        public override string LongDescription => "Stops reflection and effects.";
+        public override string LongDescription => "Optionally Stops reflection and Transition effects.";
 
         public override string Name => "AntiReflection";
 
