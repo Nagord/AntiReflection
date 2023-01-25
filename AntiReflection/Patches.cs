@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using PulsarModLoader.Utilities;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using static PulsarModLoader.Patches.HarmonyHelpers;
@@ -43,11 +44,12 @@ namespace AntiReflection
     {
         static bool PatchMethod(PLPostProcessReflection instance)
         {
-            float SmoothReflectionPercent = instance.SmoothReflectionPercent;
+            float SmoothReflectionPercent = (float)AccessTools.Field(typeof(PLPostProcessReflection), "SmoothReflectionPercent").GetValue(instance);
             bool Reflection = Global.CanRenderReflection && PLServer.Instance != null && PLServer.Instance.IsReflection;
-            if (!Global.CanRenderReflectionTransition && (SmoothReflectionPercent != 0f || SmoothReflectionPercent != 1))
+            if (!Global.CanRenderReflectionTransition && PLNetworkManager.Instance != null && PLNetworkManager.Instance.LocalPlayer != null && SmoothReflectionPercent != 0f && SmoothReflectionPercent != 1)
             {
-                instance.SmoothReflectionPercent = Reflection ? 1f : 0f;
+                Messaging.Centerprint("Reflecting your display", PLNetworkManager.Instance.LocalPlayer, "msg", UnityEngine.Color.blue);
+                AccessTools.Field(typeof(PLPostProcessReflection), "SmoothReflectionPercent").SetValue(instance, Reflection ? 1f : 0f);
             }
             return Reflection;
         }
