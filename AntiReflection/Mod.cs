@@ -1,14 +1,14 @@
-﻿using PulsarPluginLoader;
+﻿using PulsarModLoader;
 
 namespace AntiReflection
 {
-    public class Plugin : PulsarPlugin
+    public class Mod : PulsarMod
     {
-        public override string Version => "0.0.1";
+        public override string Version => "2.0.0";
 
         public override string Author => "Dragon";
 
-        public override string LongDescription => "Text";
+        public override string LongDescription => "Stops reflection and effects.";
 
         public override string Name => "AntiReflection";
 
